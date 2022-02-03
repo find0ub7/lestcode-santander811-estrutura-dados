@@ -1,8 +1,12 @@
 package com.letscode.sort;
 
-import org.apache.commons.collections.CollectionUtils;
+
+import com.google.common.collect.Lists;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -41,9 +45,7 @@ public class EstudanteTest {
 //                .map(nome -> Estudante.builder().nome(nome).build())
 //                .collect(Collectors.toSet());
 
-        Map<String, List<Estudante>> estudantesPorTurma =
-                estudantes.stream()
-                .collect(groupingBy(Estudante::getTurma));
+        Map<String, List<Estudante>> estudantesPorTurma = estudantes.stream().collect(groupingBy(Estudante::getTurma));
 
 //        estudantesPorTurma.forEach((turma, ests) -> {
 //            System.out.println("Turma: " + turma);
@@ -51,12 +53,24 @@ public class EstudanteTest {
 //        });
 
         List<Estudante> estudantes811 = estudantesPorTurma.getOrDefault("819", Collections.emptyList());
-        System.out.println(estudantes811);
+//        System.out.println(estudantes811);
 
-//        estudantes.sort(
-//                comparing(Estudante::getNome)
+//        new ArrayList<>(estudantes).sort(
+//                Comparator.comparing(Estudante::getNome)
 //                .thenComparing(Estudante::getIdade, Comparator.reverseOrder())
 //                .thenComparing(Estudante::getRank));
+
+//        estudantes.stream()
+//                .sorted(Comparator.comparing(Estudante::getNome)
+//                        .thenComparing(Estudante::getIdade, Comparator.reverseOrder())
+//                        .thenComparing(Estudante::getRank))
+//                .forEach(System.out::println);
+
+//        agrupamentoPorIteracao(estudantes);
+
+
+        Map<String, List<Estudante>> agrupamentoViaStream = estudantes.stream().collect(groupingBy(Estudante::getTurma));
+        System.out.println(agrupamentoViaStream);
 
 //        Set<Estudante> estudantesSet = new TreeSet<>(comparing(Estudante::getNome)
 //                .thenComparing(Estudante::getIdade, reverseOrder())
@@ -66,5 +80,17 @@ public class EstudanteTest {
 //        estudantes.forEach(estudantesSet::add);
 
 //        estudantesSet.forEach(System.out::println);
+    }
+
+    private static void agrupamentoPorIteracao(Set<Estudante> estudantes) {
+        Map<String, List<Estudante>> agrupamento = new HashMap<>();
+        for (Estudante estudante : estudantes) {
+            String turma = estudante.getTurma();
+
+            List<Estudante> listaDaTurma = agrupamento.getOrDefault(turma, Lists.newArrayList());
+            listaDaTurma.add(estudante);
+            agrupamento.put(turma, listaDaTurma);
+        }
+        System.out.println(agrupamento);
     }
 }

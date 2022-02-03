@@ -5,28 +5,33 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Getter
 @Builder
 @ToString
 @EqualsAndHashCode
-public class Estudante implements Comparable<Estudante> {
+public class Estudante {
 
-    private String nome;
-    private int idade;
-    private String turma;
-    private int rank;
+//public class Estudante implements Comparable<Estudante>, Serializable {
 
-    @Override
-    public int compareTo(Estudante estudante) {
-        int nomeCompare = nome.compareTo(estudante.nome);
-        if (nomeCompare != 0) {
-            return nomeCompare;
-        }
+    protected String nome;
+    protected int idade;
+    protected String turma;
+    protected int rank;
 
-        int idadeCompare = Integer.compare(idade, estudante.idade); //idade - estudante.idade
-        if (idadeCompare != 0) {
-            return idadeCompare;
-        }
-        return turma.compareTo(estudante.turma);
-    }
+//    @Override
+//    public int compareTo(Estudante estudante) {
+//        int nomeCompare = nome.compareTo(estudante.nome);
+//        if (nomeCompare != 0) {
+//            return nomeCompare;
+//        }
+//
+//        int idadeCompare = Integer.compare(idade, estudante.idade); //idade - estudante.idade
+//        if (idadeCompare != 0) {
+//            return idadeCompare;
+//        }
+//        return turma.compareTo(estudante.turma);
+//    }
 }

@@ -1,4 +1,7 @@
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.letscode.sort.Estudante;
+import com.letscode.sort.EstudanteFilho;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -41,14 +44,26 @@ public class Main {
         //TODO ordenacao com comparator considerando vogais primeiro (classe concreta)
 
 //        Collections.shuffle(lista);
-        lista.sort(Comparator.reverseOrder());
-        lista.forEach(System.out::println);
+        Collections.sort(lista);
 
-        listaLinked.add("A");
-        listaLinked.add("C");
-        listaLinked.add("B");
-        listaLinked.add("D");
-        listaLinked.add("A");
+        List<EstudanteFilho> listFilhoEstudante = Lists.newArrayList(
+                new EstudanteFilho("bb", 1, "turma1", 1),
+                new EstudanteFilho("aa", 2, "turma2", 2),
+                new EstudanteFilho("dd", 2, "turma2", 2),
+                new EstudanteFilho("aaaa", 2, "turma2", 2)
+        );
+
+//        Collections.sort(listFilhoEstudante);
+//        listFilhoEstudante.forEach(System.out::println);
+
+        listFilhoEstudante.sort(Comparator.comparing(Estudante::getNome));
+        listFilhoEstudante.forEach(System.out::println);
+//
+//        listaLinked.add("A");
+//        listaLinked.add("C");
+//        listaLinked.add("B");
+//        listaLinked.add("D");
+//        listaLinked.add("A");
 
 //        listaLinked.forEach(System.out::println);//mantem a ordem de inclusao e nao ordem dos elementos(alfabetica no caso de String)
     }
